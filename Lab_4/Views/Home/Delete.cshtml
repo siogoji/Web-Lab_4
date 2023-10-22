@@ -1,0 +1,16 @@
+﻿@model Lab_4.Models.Trainer
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="container mt-4">
+    <h2>Видалення тренера</h2>
+    <p>Ви впевнені, що хочете видалити даного тренера?</p>
+
+    <form asp-action="Delete" asp-controller="Home" method="post">
+        <input type="hidden" asp-for="TrainerId" />
+        <button type="submit" class="btn btn-danger">Підтвердити видалення</button>
+        <a asp-action="Index" class="btn btn-secondary">Скасувати</a>
+    </form>
+</div>

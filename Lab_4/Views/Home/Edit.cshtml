@@ -1,0 +1,30 @@
+﻿@model Lab_4.Models.Trainer
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Редагування тренера</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="TrainerId" />
+    <div class="form-group mt-2">
+        <label asp-for="Name">Ім'я</label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group mt-2">
+        <label asp-for="Specialization">Спеціалізація</label>
+        <input asp-for="Specialization" class="form-control" />
+    </div>
+    <div class="form-group mt-2">
+        <label asp-for="ExperianceYears">Досвід</label>
+        <input asp-for="ExperianceYears" class="form-control" />
+    </div>
+    <div class="form-group mt-2">
+        <label asp-for="Number">Номер телефону</label>
+        <input asp-for="Number" class="form-control" />
+    </div>
+    <div class="form-group mt-2">
+        <button type="submit" class="btn btn-primary">Зберегти зміни</button>
+    </div>
+</form>

@@ -1,0 +1,76 @@
+﻿@model List<Lab_4.Models.Trainer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="text-right">
+    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+    {
+        <div class="form-group d-inline">
+            <input type="text" name="searchString" placeholder="Пошук за ім'ям" class="form-control" value="@ViewData["SearchString"]" />
+        </div>
+        <div class="form-group d-inline">
+            <label for="sortOrder">Сортування по імені:</label>
+            <select id="sortOrder" name="sortOrder" class="form-control">
+                <option value="">За зростанням</option>
+                <option value="name_desc">За спаданням</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary d-inline mt-2">Застосувати</button>
+    }
+</div>
+
+<p class="mt-2">
+    <a asp-action="Create" class="btn btn-success">Додати нового тренера</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th class="text-center">Id</th>
+            <th class="text-center">
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]">
+                    Ім'я
+                    @if (ViewData["NameSortParam"] as string == "name_desc")
+                    {
+                        <i class="fas fa-caret-down"></i>
+                    }
+                    else
+                    {
+                        <i class="fas fa-caret-up"></i>
+                    }
+                </a>
+            </th>
+            <th class="text-center">Спеціалізація</th>
+            <th class="text-center">Досвід (Роки)</th>
+            <th class="text-center">Номер телефону</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var trainer in Model)
+        {
+            <tr>
+                <td class="text-center">@trainer.TrainerId</td>
+                <td class="text-center">@trainer.Name</td>
+                <td class="text-center">@trainer.Specialization</td>
+                <td class="text-center">@trainer.ExperianceYears</td>
+                <td class="text-center">@trainer.Number</td>
+                <td>
+                    <a asp-action="Edit" asp-controller="Home" asp-route-id="@trainer.TrainerId" class="btn btn-warning">Редагувати</a>
+                    <button class="btn btn-danger" onclick="confirmDelete(@trainer.TrainerId)">Видалити</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (!string.IsNullOrEmpty(ViewData["SearchString"] as string))
+{
+    <p>Результати пошуку для: "<strong>@ViewData["SearchString"]</strong>"</p>
+}
+<script>
+    function confirmDelete(trainerId) {
+        window.location.href = "/Home/Delete/" + trainerId;
+    }
+</script>
